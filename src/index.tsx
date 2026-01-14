@@ -1,71 +1,148 @@
+import { createRoot } from "react-dom/client"
+import { Plus, Search, Store, ChevronRight } from "lucide-react"
 
-import { createRoot } from 'react-dom/client';
-import { Input } from './components/ui/input';
-import './globals.css';
+import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar"
+import { Button } from "@/components/ui/button"
+import { Separator } from "@/components/ui/separator"
+import {
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
 
-const App = () => {
+import { AppSidebar } from "@/components/custom/app-sidebar"
+import { DateRangePicker } from "@/components/custom/date-range-picker"
+import { StatCard } from "@/components/custom/stat-card"
+import { OrdersChart } from "@/components/custom/orders-chart"
+import { OrdersTable } from "@/components/custom/orders-table"
+
+import "./globals.css"
+
+function OrdersPage() {
     return (
-        <div className="p-10 space-y-8 max-w-4xl mx-auto">
-            <h1 className="text-3xl font-bold mb-6">Figma Input Component Test</h1>
+        <SidebarProvider>
+            <AppSidebar />
+            <SidebarInset>
+                <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
+                    <SidebarTrigger className="-ml-1" />
+                    <Separator orientation="vertical" className="mr-2 h-4" />
+                    <Breadcrumb>
+                        <BreadcrumbList>
+                            <BreadcrumbItem>
+                                <BreadcrumbLink href="#" className="flex items-center gap-1">
+                                    <Store className="h-4 w-4" />
+                                    Store
+                                </BreadcrumbLink>
+                            </BreadcrumbItem>
+                            <BreadcrumbSeparator>
+                                <ChevronRight className="h-4 w-4" />
+                            </BreadcrumbSeparator>
+                            <BreadcrumbItem>
+                                <BreadcrumbPage>Orders</BreadcrumbPage>
+                            </BreadcrumbItem>
+                        </BreadcrumbList>
+                    </Breadcrumb>
+                </header>
 
-            <section className="space-y-4">
-                <h2 className="text-xl font-semibold border-b pb-2">Default Variant</h2>
-                <div className="grid grid-cols-2 gap-4">
-                    <div>
-                        <label className="text-sm mb-1 block text-gray-500">Default State</label>
-                        <Input placeholderText="Placeholder" />
+                <div className="flex flex-1 flex-col gap-6 p-6">
+                    {/* Page Header */}
+                    <div className="flex items-center justify-between">
+                        <h1 className="text-3xl font-semibold tracking-tight">Orders</h1>
+                        <div className="flex items-center gap-2">
+                            <Button variant="outline">
+                                <Search className="mr-2 h-4 w-4" />
+                                Search
+                            </Button>
+                            <Button>
+                                <Plus className="mr-2 h-4 w-4" />
+                                New
+                            </Button>
+                        </div>
                     </div>
-                    <div>
-                        <label className="text-sm mb-1 block text-gray-500">Filled State</label>
-                        <Input defaultValue="Input text" />
-                    </div>
-                    <div>
-                        <label className="text-sm mb-1 block text-gray-500">Focus State (Forced)</label>
-                        <Input placeholderText="Placeholder" state="Focus" />
-                    </div>
-                    <div>
-                        <label className="text-sm mb-1 block text-gray-500">Disabled State</label>
-                        <Input placeholderText="Placeholder" state="Disabled" />
-                    </div>
-                    <div>
-                        <label className="text-sm mb-1 block text-gray-500">Error State</label>
-                        <Input placeholderText="Placeholder" state="Error" />
-                    </div>
-                </div>
-            </section>
 
-            <section className="space-y-4">
-                <h2 className="text-xl font-semibold border-b pb-2">Password Variant</h2>
-                <div className="grid grid-cols-2 gap-4">
-                    <div>
-                        <label className="text-sm mb-1 block text-gray-500">Default State</label>
-                        <Input variant="Password" placeholderText="Password" />
+                    {/* Filters Row */}
+                    <div className="flex items-center justify-between">
+                        <DateRangePicker />
+                        <div className="flex items-center gap-2">
+                            <Select defaultValue="all">
+                                <SelectTrigger className="w-[140px]">
+                                    <SelectValue placeholder="Products" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="all">Products: All</SelectItem>
+                                    <SelectItem value="figma">Figma UI kit</SelectItem>
+                                </SelectContent>
+                            </Select>
+                            <Select defaultValue="daily">
+                                <SelectTrigger className="w-[100px]">
+                                    <SelectValue placeholder="Daily" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="daily">Daily</SelectItem>
+                                    <SelectItem value="weekly">Weekly</SelectItem>
+                                    <SelectItem value="monthly">Monthly</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
                     </div>
-                    <div>
-                        <label className="text-sm mb-1 block text-gray-500">Error State</label>
-                        <Input variant="Password" placeholderText="Password" state="Error" />
-                    </div>
-                </div>
-            </section>
 
-            <section className="space-y-4">
-                <h2 className="text-xl font-semibold border-b pb-2">File Variant</h2>
-                <div className="grid grid-cols-2 gap-4">
-                    <div>
-                        <label className="text-sm mb-1 block text-gray-500">Default State</label>
-                        <Input variant="File" />
+                    {/* Stats Cards */}
+                    <div className="flex items-center gap-6">
+                        <StatCard
+                            label="Revenue"
+                            value="$40,199.05"
+                            percentage="+15.11%"
+                            trend="up"
+                        />
+                        <Separator orientation="vertical" className="h-16" />
+                        <StatCard
+                            label="Total orders"
+                            value="1,789"
+                            percentage="+25.66%"
+                            trend="up"
+                        />
+                        <Separator orientation="vertical" className="h-16" />
+                        <StatCard
+                            label="New orders"
+                            value="341"
+                            percentage="+11.23%"
+                            trend="up"
+                        />
+                        <Separator orientation="vertical" className="h-16" />
+                        <StatCard
+                            label="Refunds"
+                            value="11"
+                            percentage="-4.51%"
+                            trend="down"
+                        />
                     </div>
+
+                    {/* Chart */}
+                    <OrdersChart />
+
+                    {/* Orders Table */}
+                    <OrdersTable />
                 </div>
-            </section>
-        </div>
-    );
-};
+            </SidebarInset>
+        </SidebarProvider>
+    )
+}
 
 // Mount the app
-const container = document.getElementById('root');
+const container = document.getElementById("root")
 if (container) {
-    const root = createRoot(container);
-    root.render(<App />);
+    const root = createRoot(container)
+    root.render(<OrdersPage />)
 } else {
-    console.error("Root element not found");
+    console.error("Root element not found")
 }
