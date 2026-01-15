@@ -85,8 +85,8 @@ export function OrdersTable() {
     return (
         <div className="space-y-4">
             {/* Toolbar */}
-            <div className="flex items-center justify-between">
-                <div className="relative w-[300px]">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div className="relative w-full sm:w-[300px]">
                     <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                     <Input placeholder="Search orders" className="pl-9" />
                 </div>
@@ -109,7 +109,7 @@ export function OrdersTable() {
             </div>
 
             {/* Table */}
-            <div className="rounded-md border">
+            <div className="rounded-md border overflow-x-auto">
                 <Table>
                     <TableHeader>
                         <TableRow>

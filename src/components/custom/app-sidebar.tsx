@@ -39,15 +39,15 @@ const navItems = [
     {
         title: "Playground",
         icon: Terminal,
-        url: "#",
+        url: "/playground",
     },
     {
         title: "Models",
         icon: Sparkles,
         isOpen: true,
         items: [
-            { title: "Products", icon: Package, url: "#" },
-            { title: "Orders", icon: ShoppingCart, url: "#", isActive: true },
+            { title: "Products", icon: Package, url: "/products" },
+            { title: "Orders", icon: ShoppingCart, url: "/orders" },
             { title: "Subscriptions", icon: CreditCard, url: "#" },
             { title: "Customers", icon: Users, url: "#" },
             { title: "Discounts", icon: Gift, url: "#" },
@@ -70,7 +70,12 @@ const navItems = [
     },
 ]
 
+import { useLocation } from "react-router-dom"
+
 export function AppSidebar() {
+    const location = useLocation()
+    const pathname = location.pathname
+
     return (
         <Sidebar>
             <SidebarHeader>
@@ -115,7 +120,7 @@ export function AppSidebar() {
                                                         <SidebarMenuSubItem key={subItem.title}>
                                                             <SidebarMenuSubButton
                                                                 asChild
-                                                                isActive={subItem.isActive}
+                                                                isActive={pathname === subItem.url}
                                                             >
                                                                 <a href={subItem.url}>
                                                                     <span>{subItem.title}</span>
@@ -129,7 +134,7 @@ export function AppSidebar() {
                                     </Collapsible>
                                 ) : (
                                     <SidebarMenuItem key={item.title}>
-                                        <SidebarMenuButton tooltip={item.title} asChild>
+                                        <SidebarMenuButton tooltip={item.title} asChild isActive={pathname === item.url}>
                                             <a href={item.url}>
                                                 {item.icon && <item.icon className="size-4" />}
                                                 <span>{item.title}</span>
