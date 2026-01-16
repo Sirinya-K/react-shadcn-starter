@@ -1,8 +1,8 @@
 import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/custom/app-sidebar"
-import { Shader3 } from "@/components/blocks/shader3"
+import { Shader7 } from "@/components/blocks/shader7"
 import { Hero78 } from "@/components/blocks/hero78"
-import { Gallery30 } from "@/components/blocks/gallery30"
+import { Gallery24 } from "@/components/blocks/gallery24"
 
 export default function PlaygroundPage() {
     return (
@@ -11,7 +11,7 @@ export default function PlaygroundPage() {
             <SidebarInset className="relative overflow-hidden">
                 {/* Background Shader - Fixed position to stay behind everything */}
                 <div className="fixed inset-0 z-0 pointer-events-none">
-                    <Shader3 />
+                    <Shader7 />
                     {/* <div className="bg-black/80 w-full h-full" /> */}
                 </div>
 
@@ -24,7 +24,7 @@ export default function PlaygroundPage() {
 
                     {/* Gallery Section - Force dark mode for text visibility */}
                     <div className="w-full dark text-foreground">
-                        <Gallery30 className="bg-transparent" />
+                        <Gallery24 className="bg-transparent" />
                     </div>
                 </div>
                 {/* Sidebar Trigger - Ensure it's visible */}

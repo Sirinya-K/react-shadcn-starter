@@ -288,7 +288,7 @@ const Shader3 = ({
   `,
   uniforms = {},
   className,
-  color = "#bbffcc",
+  color = "rgba(222, 91, 255, 1)",
 }: ShaderBackgroundProps) => {
   const shaderUniforms = useMemo(
     () => ({
